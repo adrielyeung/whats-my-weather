@@ -10,7 +10,7 @@ Check back to see new features here!
 
 ## How to use
 1. Clone the repository into a local directory.
-2. The ```keys_sample.js``` is a sample file for storing API keys. For security purposes, please register for your own keys on Open Weather API and Google Maps API.
+2. The ```keys_sample.js``` is a sample file for storing API keys. For security purposes, please register for your own keys on Open Weather API (https://openweathermap.org/api) and Google Maps API (https://cloud.google.com/maps-platform/).
 3. Insert your API keys into ```keys_sample.js```.
 4. Rename ```keys_sample.js``` to ```keys.js``` for use.
 5. For local runs, it is preferred to run using **Live Server** extension in Visual Studio Code, this prevents the CORS (cross origin request) error from happening.
