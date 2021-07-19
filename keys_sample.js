@@ -1,0 +1,2 @@
+var openWeatherKey = "";
+var googleApiKeys = "";

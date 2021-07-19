@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>What's My Weather - Weather Determines Your Mood</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Link up style sheet -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Link up functional Javascript -->
+    <script src="keys.js"></script>
+    <script src="weather.js"></script>
+    <!-- Add nice looking logos of GitHub, YouTube etc. -->
+    <script src="https://kit.fontawesome.com/9664c8b16b.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body onload="intiGeoLocation()">
+    <div class="wpBackground">
+        <div class="wpLayer">
+            <div class="d-flex flex-column h-100">
+                <div id="wpMain" class="container">
+                    <div class="row">
+                        <a href="" id="wpTitle" class="col text-center">WHAT'S MY WEATHER</a>
+                    </div>
+                    <div class="row">
+                        <div id="wpInput" class="col-sm">
+                            <div class="row col d-md-inline-block my-1">
+                                <input type="text" class="form-control" id="inputLocation" placeholder="Input your address/city/town here...">
+                            </div>
+                            <div class="row col d-md-inline-block my-1">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-secondary" id="inputLocationButton" type="button" onclick="convertLocationToLatLon()">Load</button>
+                                  </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div id="wpCurrent" class="col">
+                            <div class="row">
+                                <div id="wpTemp" class="col-sm-8">
+                                    <div class="row col d-md-inline-block" id="location">
+                                        Location cannot be loaded
+                                    </div>
+                                    <div class="row col d-md-inline-block" id="latlong">
+                                        
+                                    </div>
+                                    <div class="row col d-md-inline-block" id="currentDate">Date cannot be loaded</div>
+                                    <div class="row col d-md-inline-block"></div>
+                                    <div class="row col d-md-inline-block" id="summary">Summary cannot be loaded</div>
+                                    <div class="row col d-md-inline-block" id="currentTemp">Temp</div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <img id="weatherIcon" class="img-fluid" src="images/MostlySunny.png" width="50%" height="50%">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- col-md without specifying column width will allow for stacking up -->
+                        <div id="wpConditions" class="col-md">
+                            <div class="row">
+                                <div id="precipitation" class="col-md">Precipitation cannot be loaded</div>
+                            </div>
+                            <div class="row">
+                                <div id="humidity" class="col-md">Humidity cannot be loaded</div>
+                            </div>
+                            <div class="row">
+                                <div id="wind" class="col-md">Wind speed cannot be loaded</div>
+                            </div>
+                        </div>
+                        <div id="wpForecast" class="col-md">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" id="forecastTab">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#daily">Daily</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#hourly">Hourly</a>
+                                </li>
+                            </ul>
+    
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div class="tab-pane container active" id="daily">
+                                    <table id="dailyForecast" width=100%>
+                                        <!-- JavaScript to write data -->
+                                    </table>
+                                </div>
+                                <div class="tab-pane container fade" id="hourly">
+                                    <table id="hourlyForecast" width=100%>
+                                        <!-- JavaScript to write data -->
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div id="wpFooter" class="col text-center">
+                            <div class="row">
+                                <div class="col">
+                                    Powered by <a href="https://openweathermap.org/api" target="_blank">Open Weather API</a> and <a href="https://developers.google.com/maps" target="_blank">Google Maps API</a>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <a href="https://github.com/adrielyeung" target="_blank"><i class="fab fa-github-square" aria-hidden="true" style="color:black"></i><span class="mx-2">View my GitHub profile</span></a>| 
+                                    <a href="https://github.com/adrielyeung/whats-my-weather" target="_blank"><i class="fab fa-github-square" aria-hidden="true" style="color:black"></i><span class="mx-2">View source code on GitHub</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
