@@ -18,7 +18,7 @@ Check back to see new features here!
 
 ## Description
 The front end, ```index.html```, is divided into several sections:
-<img src="https://github.com/adrielyeung/keyword-searcher/blob/main/images/WhatsMyWeather.PNG" alt="What's My Weather Front End" width="100%" height="100%">
+<img src="https://github.com/adrielyeung/whats-my-weather/blob/main/images/WhatsMyWeather.PNG" alt="What's My Weather Front End" width="100%" height="100%">
 
 1. Input area - Custom selection of location.
 2. Address area - Displays your browser address (on loading the page), or the address in Input area (on loading a custom location).
