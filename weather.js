@@ -199,22 +199,24 @@ function fetchLocation(apiKey, latitude, longitude) {
 }
 
 function convertLocationToLatLon() {
-    var inputAddress = document.getElementById("inputLocation").value;
+    var inputAddress = document.getElementById("inputLocation").value.trim();
     var googleGeocodeLink = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(inputAddress)}&key=${googleApiKeys}`;
     var geocodeResult;
 
-    fetch(googleGeocodeLink)
-    .then(response => {
-        // Get response as JSON
-        return response.json();
-    })
-    .then(data => {
-        geocodeResult = data.results[0];
-        document.getElementById("location").innerHTML = geocodeResult.formatted_address;
-        document.getElementById("latlong").innerHTML = "Lat: " + geocodeResult.geometry.location.lat + " Long: " + geocodeResult.geometry.location.lng;
-        fetchWeatherReport(openWeatherKey, geocodeResult.geometry.location.lat,
-            geocodeResult.geometry.location.lng, true);
-    })
+    if (inputAddress.length > 0) {
+        fetch(googleGeocodeLink)
+        .then(response => {
+            // Get response as JSON
+            return response.json();
+        })
+        .then(data => {
+            geocodeResult = data.results[0];
+            document.getElementById("location").innerHTML = geocodeResult.formatted_address;
+            document.getElementById("latlong").innerHTML = "Lat: " + geocodeResult.geometry.location.lat + " Long: " + geocodeResult.geometry.location.lng;
+            fetchWeatherReport(openWeatherKey, geocodeResult.geometry.location.lat,
+                geocodeResult.geometry.location.lng, true);
+        })
+    }
 }
 
 // Calculate the time at location timezone

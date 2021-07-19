@@ -48,7 +48,7 @@ body {
     --CfColors-darkBlue-rgba: rgba(0, 115, 171, .5);
     --CfColors-darkGreen-rgba: rgba(17, 139, 1, 0.5);
     --CFColors-Orange-rgba: rgba(247, 148, 29, .5);
-    --CFColors-ltGrey-rgba: rgba(223, 227, 228, .5);
+    --CFColors-ltGrey-rgba: rgb(223, 227, 228);
     --CFColors-white-rgba: rgba(255, 255, 255, .2);
     --CFColors-Black-rgba: rgba(0, 0, 0, 1);
 }
@@ -85,6 +85,11 @@ body {
     background-color: var(--CFColors-grayBlue-rgba);
     color: white;
     resize: vertical;
+}
+
+#inputLocationButton {
+    background-color: var(--CFColors-ltGrey-rgba);
+    color: black;
 }
 
 #wpCurrent {
