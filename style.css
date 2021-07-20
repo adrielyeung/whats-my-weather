@@ -55,12 +55,19 @@ body {
 
 #weatherIcon {
     max-width: 100%;
+    width: 3em;
+    height: 3em;
     height: auto;
 }
 
 #location {
     font-weight: bolder;
 }
+
+#map {
+    height: 400px;
+    width: 100%;
+}  
 
 #wpTitle {
     font-family: titling-gothic-fb-wide, sans-serif;
