@@ -5,8 +5,8 @@ Built with HTML (Bootstrap), CSS, and functionality provided by Javascript.
 
 Using Open Weather API to obtain weather data, and Google Maps API to obtain geographical information.
 
-## What's new - 
-Check back to see new features here!
+## What's new - 20/7/2021
+Google Map plugin to display your location / searched location and allows for searching by double clicking on map.
 
 ## How to use
 1. Clone the repository into a local directory.
@@ -24,8 +24,9 @@ The front end, ```index.html```, is divided into several sections:
 2. Address area - Displays your browser address (on loading the page), or the address in Input area (on loading a custom location).
 3. Time area - Displays the current time in your locale (on loading the page). On loading custom location, also displays current time in that location.
 4. Summary area - Displays a description of current weather and current temperature.
-5. Detail area - Displays precipitation probability, humidity and wind speed.
-6. Forecast area - Displays a 7-day weather forecast (Daily), and 12-hour weather forecast (Hourly), switching between the tabs.
+5. Map area - Displays your location / searched location. Double-click anywhere on map to load the weather there.
+6. Detail area - Displays precipitation probability, humidity and wind speed.
+7. Forecast area - Displays a 7-day weather forecast (Daily), and 12-hour weather forecast (Hourly), switching between the tabs.
 
 Functionality is provided by ```weather.js``` file.
 
@@ -38,9 +39,11 @@ Please refresh the page on changing to another location.
 ### Manual input
 Please input your address/town/city in the Input area and click "Load".
 
+### Map input
+Please double click on the map to select a location.
+
 ## Future developments
-1. Google Map plugin for displaying location.
-2. Google Map plugin for selecting custom location.
+Let me know if you have ideas for a new feature!
 
 ## Credits
 - The Coder Foundry for their fantastic tutorial which this project is based on (https://www.youtube.com/watch?v=DDxy-sCiKQw).
