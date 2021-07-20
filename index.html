@@ -27,32 +27,37 @@
                     <div class="row">
                         <div id="wpInput" class="col-sm">
                             <div class="row col d-md-inline-block my-1">
+                                Input your address, or double click on the map to load the weather there
+                            </div>
+                            <div class="row col d-md-inline-block my-1">
                                 <input type="text" class="form-control" id="inputLocation" placeholder="Input your address/city/town here...">
                             </div>
                             <div class="row col d-md-inline-block my-1">
                                 <span class="input-group-btn">
                                     <button class="btn btn-secondary" id="inputLocationButton" type="button" onclick="convertLocationToLatLon()">Load</button>
-                                  </span>
+                                </span>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div id="wpCurrent" class="col">
                             <div class="row">
-                                <div id="wpTemp" class="col-sm-8">
+                                <div id="wpTemp" class="col-sm">
                                     <div class="row col d-md-inline-block" id="location">
                                         Location cannot be loaded
                                     </div>
-                                    <div class="row col d-md-inline-block" id="latlong">
-                                        
-                                    </div>
                                     <div class="row col d-md-inline-block" id="currentDate">Date cannot be loaded</div>
                                     <div class="row col d-md-inline-block"></div>
-                                    <div class="row col d-md-inline-block" id="summary">Summary cannot be loaded</div>
+                                    <div class="row col d-md-inline-block">
+                                        <span id="summary">Summary cannot be loaded</span>
+                                        <img id="weatherIcon" class="img-fluid" src="images/MostlySunny.png">
+                                    </div>
                                     <div class="row col d-md-inline-block" id="currentTemp">Temp</div>
                                 </div>
-                                <div class="col-sm-4">
-                                    <img id="weatherIcon" class="img-fluid" src="images/MostlySunny.png" width="50%" height="50%">
+                                <div class="col-sm">
+                                    <div class="row col d-md-inline-block mx-1 my-1" id="map">
+
+                                    </div>
                                 </div>
                             </div>
                         </div>

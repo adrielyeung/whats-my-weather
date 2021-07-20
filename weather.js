@@ -2,8 +2,8 @@ const wDay = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const wMonth = ["January", "February", "March", "April", "May", "June", "July",
     "August", "September", "October", "November", "December"];
 
-function fetchWeatherReport(apiKey, latitude, longitude, displayLocationTime) {
-    var openWeatherLink = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&units=metric&exclude=minutely,alerts&appid=${apiKey}`;
+function fetchWeatherReport(latitude, longitude, displayLocationTime) {
+    var openWeatherLink = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&units=metric&exclude=minutely,alerts&appid=${openWeatherKey}`;
     var openWeatherIconLink;
 
     var summary;
@@ -178,8 +178,8 @@ function padToTwoDigits(number) {
     return number;
 }
 
-function fetchLocation(apiKey, latitude, longitude) {
-    var googleApiLink = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}`;
+function fetchLocation(latitude, longitude) {
+    var googleApiLink = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${googleApiKeys}`;
 
     // Get Google API response
     fetch(googleApiLink)
@@ -191,7 +191,7 @@ function fetchLocation(apiKey, latitude, longitude) {
         // Work with JSON object
         // Get the formatted address of location
         document.getElementById("location").innerHTML = data.results[4].formatted_address;
-        document.getElementById("latlong").innerHTML = "Lat: " + latitude + " Long: " + longitude;
+        loadLocationOnMap(latitude, longitude);
     })
     .catch (err => {
         throw(`Sorry, an error occurred ${err}`);
@@ -202,6 +202,8 @@ function convertLocationToLatLon() {
     var inputAddress = document.getElementById("inputLocation").value.trim();
     var googleGeocodeLink = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(inputAddress)}&key=${googleApiKeys}`;
     var geocodeResult;
+    var latitude;
+    var longitude;
 
     if (inputAddress.length > 0) {
         fetch(googleGeocodeLink)
@@ -212,11 +214,44 @@ function convertLocationToLatLon() {
         .then(data => {
             geocodeResult = data.results[0];
             document.getElementById("location").innerHTML = geocodeResult.formatted_address;
-            document.getElementById("latlong").innerHTML = "Lat: " + geocodeResult.geometry.location.lat + " Long: " + geocodeResult.geometry.location.lng;
-            fetchWeatherReport(openWeatherKey, geocodeResult.geometry.location.lat,
-                geocodeResult.geometry.location.lng, true);
+            latitude = geocodeResult.geometry.location.lat;
+            longitude = geocodeResult.geometry.location.lng;
+
+            loadLocationOnMap(latitude, longitude);
+            fetchWeatherReport(latitude, longitude, true);
         })
     }
+}
+
+function loadLocationOnMap(latitude, longitude) {
+    var marked = false;
+    // The location selected
+    const selectedLocation = { lat: latitude, lng: longitude };
+    // The map, centered at selectedLocation
+    const map = new google.maps.Map(document.getElementById("map"), {
+        // Zoom level 10 is city level
+        zoom: 10,
+        center: selectedLocation
+    });
+    // The marker, positioned at selectedLocation
+    var marker = new google.maps.Marker({
+        position: selectedLocation,
+        map: map
+    });
+    var clickedLocation;
+    var clickedLat;
+    var clickedLong;
+    // Add listener for any double-clicks on map
+    google.maps.event.addListener(map, "dblclick", function(event) {
+        // Get location user double-clicked
+        clickedLocation = event.latLng;
+        clickedLat = clickedLocation.lat();
+        clickedLong = clickedLocation.lng();
+        marker.setPosition(clickedLocation);
+        
+        fetchLocation(clickedLat, clickedLong);
+        fetchWeatherReport(clickedLat, clickedLong, true);
+    });
 }
 
 // Calculate the time at location timezone
@@ -234,14 +269,21 @@ function intiGeoLocation() {
         alert("Sorry, you browser does not support geolocation services. " +
             "Please enter your address/city/town to load the weather.");
     }
+
+    // Create the script tag, set the appropriate attributes
+    var script = document.createElement("script");
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${googleApiKeys}&v=weekly`;
+    script.async = true;
+
+    // Append the 'script' element to 'head'
+    document.head.appendChild(script);
 }
 
 function success(position) {
     // Add keys to API (in keys.js file)
-    fetchLocation(googleApiKeys, position.coords.latitude,
-        position.coords.longitude);
-    fetchWeatherReport(openWeatherKey, position.coords.latitude,
-        position.coords.longitude, false);
+    fetchLocation(position.coords.latitude, position.coords.longitude);
+    fetchWeatherReport(position.coords.latitude, position.coords.longitude,
+        false);
 }
 
 function fail() {
